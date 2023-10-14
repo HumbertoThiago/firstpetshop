@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row justify-content-center m-4">
+    <div class="col-10">
+      <form action="?" method="GET" class="row">
+        <div class="d-flex align-items-center">
+          <input type="text" class="form-control" name="inptPesquisar" id="" value="{{ request.GET.inptPesquisar }}"
+            class="p-1 border" autocomplete="off" placeholder="Pesquisar por Animais ...">
+          <button type="submit" class="btn btn-primary bi bi-search ms-auto">Pesquisar</button>
+          <a href="{% url 'listar-animal' %}" class="btn btn-light bi bi-search ms-auto">Limpar</a>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="d-flex align-items-center">
+          <a class="btn btn-primary" href="{% url 'cadastrar-animal' %}">Novo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+      <tr>
+        <th scope="row">{{object.id}}</th>
+        <td>{{object.nome}}</td>
+        <td>
+          <a href="{% url 'editar-animal' object.pk %}" class="btn btn-success bi bi-pencil-square"></a>
+          <a href="{% url 'excluir-animal' object.pk %}" class="btn btn-danger bi bi-x-square"></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+
+        {% if request.GET.nome %}
+        <li class="page-item"><a class="page-link" href="?page=1&nome={{request.GET.nome}}">&laquo; Primeira</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}">Anterior</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+        {% endif %}
+
+    {% endif %}
+
+    <li class="page-item">
+        <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
+    </li>
+
+    {% if page_obj.has_next %}
+        {% if request.GET.nome %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&nome={{request.GET.nome}}">Próxima</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&nome={{request.GET.nome}}">Última &raquo;</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+        {% endif %}
+    {% endif %}
+  </ul>   
+
+</div>
+{% endblock %}

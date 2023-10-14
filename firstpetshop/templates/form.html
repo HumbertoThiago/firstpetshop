@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row justify-content-center m-4">
+        <div class="col-10">
+
+            <h3>{{ titulo }}</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <!-- Security token -->
+                {% csrf_token %}
+
+                <!-- Using the formset -->
+                {{ form|crispy }}
+
+                <button type="submit" class="btn btn-primary">
+                    {% autoescape off %}
+                    {{ icone }}
+                    {% endautoescape %}
+                    {{ botao }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

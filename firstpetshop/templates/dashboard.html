@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Fist Pet Shop - Dashboard{% endblock %}
+
+{% block navbar %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+        Cadastros
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'listar-animal' %}">Tipos de Animais</a></li>
+        <li><a class="dropdown-item" href="{% url 'listar-raca' %}">Raças</a></li>
+        <li><a class="dropdown-item" href="{% url 'listar-pet' %}">Pets</a></li>
+        <li><a class="dropdown-item" href="#">Prontuários</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="#">Fornecedores</a></li>
+        <li><a class="dropdown-item" href="#">Produtos</a></li>
+        <li><a class="dropdown-item" href="#">Medicamentos</a></li>
+        <li><a class="dropdown-item" href="#">Vacinas</a></li>
+    </ul>
+</li>
+<li class="nav-item">
+    <a class="nav-link active fw-semibold bi bi-people-fill" aria-current="page" href="{% url 'listar-cliente' %}">
+        Clientes</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active fw-semibold bi bi-droplet-fill" aria-current="page" href="{% url 'listar-servico' %}"> Serviços</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active fw-semibold bi bi-house-door-fill" aria-current="page" href="{% url 'listar-hospedagem' %}"> Hospedagem</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active fw-semibold bi bi-calendar-event-fill" aria-current="page" href="#"> Agenda</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<h1>Fist Pet Shop - Página Principal</h1>
+{% endblock %}

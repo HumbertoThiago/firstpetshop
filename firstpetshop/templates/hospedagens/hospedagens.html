@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row justify-content-center m-4">
+    <div class="col-10">
+      <form action="?" method="GET" class="row">
+        <div class="d-flex align-items-center">
+          <input type="text" class="form-control" name="inptPesquisar" id="" value="{{ request.GET.inptPesquisar }}"
+            class="p-1 border" autocomplete="off" placeholder="Pesquisar por Clientes ...">
+          <button type="submit" class="btn btn-primary bi bi-search ms-auto">Pesquisar</button>
+          <a href="{% url 'listar-hospedagem' %}" class="btn btn-light bi bi-search ms-auto">Limpar</a>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="d-flex align-items-center">
+          <a class="btn btn-primary" href="{% url 'cadastrar-hospedagem' %}">Novo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Entrada</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Saída</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Quarto</th>
+        <th scope="col">Observações</th>
+        <th scope="col">Situação</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+      <tr>
+        <th scope="row">{{object.id}}</th>
+        <td>{{object.dt_checkin|date:"d/m/Y"}}</td>
+        <td>{{object.hr_checkin|time:"H:i"}}</td>
+        <td>{{object.dt_checkout|date:"d/m/Y"}}</td>
+        <td>{{object.hr_checkout|time:"H:i"}}</td>        
+        <td>{{object.cliente}}</td>
+        <td>{{object.quarto}}</td>        
+        <td>{{object.observacao}}</td>
+        <td>{{object.status}}</td>
+        <td>
+          <a href="{% url 'editar-hospedagem' object.pk %}" class="btn btn-success bi bi-pencil-square"></a>
+          <a href="{% url 'excluir-hospedagem' object.pk %}" class="btn btn-danger bi bi-x-square"></a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="11">Nenhuma Hospedagem Cadastrada</td>
+      </tr>      
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+
+        {% if request.GET.nome %}
+        <li class="page-item"><a class="page-link" href="?page=1&nome={{request.GET.nome}}">&laquo; Primeira</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}">Anterior</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+        {% endif %}
+
+    {% endif %}
+
+    <li class="page-item">
+        <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
+    </li>
+
+    {% if page_obj.has_next %}
+        {% if request.GET.nome %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&nome={{request.GET.nome}}">Próxima</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&nome={{request.GET.nome}}">Última &raquo;</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+        {% endif %}
+    {% endif %}
+  </ul> 
+
+</div>
+{% endblock %}
