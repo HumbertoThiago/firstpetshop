@@ -1,6 +1,6 @@
-﻿# firstpetshop
+﻿# FirstPetShop
 
-py manage.py createsuperuser da prestação de serviços de um Pet Shop, desenvolvido na Disciplina de Projeto Integrador II do curso de Engenharia da Computação pela Universidade Virtual do Estado de São Paulo (UNIVESP)
+Sistema gestor das informações de prestação de serviços de um Pet Shop, desenvolvido na Disciplina de Projeto Integrador II do curso de Engenharia da Computação pela Universidade Virtual do Estado de São Paulo (UNIVESP)
 
 EM DESENVOLVIMENTO...
 
